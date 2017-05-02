@@ -4,13 +4,14 @@
 
 Test Java programs for the SoSe 2017 Course Advanced Programming (Java) of the Albert Ludwigs Universität Freiburg
 
-Version: 1.0
+Version: 1.1
 Author: Michael Floßmann
 Copyrighted under GPLv3 License"""
 
 import os
 import re
 import subprocess as sp
+from termcolor import colored
 
 classes = {}
 # scan week directory
@@ -54,8 +55,14 @@ for cls in classes.keys():
                 if(result == solution):
                     print("Passed!")
                 else:
-                    print("Test failed!")
-                    print("\tExpected:\n" + solution)
-                    print("\tGot:\n" + result)
+                    test_file.seek(0) # we need to reread the stdin file
+                    print(colored("Test failed!",
+                                  "red",
+                                  attrs=['bold']) +
+                          colored("\nWith stdin: \n", "yellow") +
+                          test_file.read())
+                    print(colored("Expected:\n", "yellow") +
+                          solution)
+                    print(colored("Got:\n", "yellow") + result)
 
                 sol_file.close()

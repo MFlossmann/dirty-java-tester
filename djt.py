@@ -11,7 +11,6 @@ Copyrighted under GPLv3 License"""
 import os
 import re
 import subprocess as sp
-from termcolor import colored
 
 classes = {}
 # scan week directory
@@ -56,13 +55,11 @@ for cls in classes.keys():
                     print("Passed!")
                 else:
                     test_file.seek(0) # we need to reread the stdin file
-                    print(colored("Test failed!",
-                                  "red",
-                                  attrs=['bold']) +
-                          colored("\nWith stdin: \n", "yellow") +
+                    print("Test failed!" +
+                          "\nWith stdin: \n" +
                           test_file.read())
-                    print(colored("Expected:\n", "yellow") +
+                    print("Expected:\n" +
                           solution)
-                    print(colored("Got:\n", "yellow") + result)
+                    print("Got:\n" + result)
 
                 sol_file.close()

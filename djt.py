@@ -34,7 +34,9 @@ for cls in classes.keys():
         if entry.endswith(".stdin"):
             tests.append(entry)
 
-    print("\tThere are " + str(len(tests)) + " tests.")
+    tests_amount = len(tests)
+    print("\tThere are " + str(tests_amount) + " tests.")
+    tests_succeeded = 0
 
     # execute the tests
     for t in tests:
@@ -56,6 +58,7 @@ for cls in classes.keys():
 
                 if(result == solution):
                     print("Passed!")
+                    tests_succeeded += 1
                 else:
                     test_file.seek(0) # we need to reread the stdin file
                     print(colored("Test failed!",
@@ -66,5 +69,9 @@ for cls in classes.keys():
                     print(colored("Expected:\n", "yellow") +
                           solution)
                     print(colored("Got:\n", "yellow") + result)
-
                 sol_file.close()
+
+    success_rate = 100.0 * tests_succeeded/tests_amount
+    print('{0} tests passed out of {1} ({2:2.1f}%)'.format(tests_succeeded,
+                                                      tests_amount,
+                                                      success_rate))

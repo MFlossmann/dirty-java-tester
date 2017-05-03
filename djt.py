@@ -19,10 +19,12 @@ for entry in os.scandir("./"):
     if not entry.is_file(): # check only directories
         dirs = os.listdir(entry.name)
         if 'testcases' in dirs and 'src' in dirs:
-            print(entry.name, " has testcases/ and src/!")
             # get the name of the java class
             class_name = os.listdir(entry.name + "/src")
             classes[class_name[0]] = entry.name
+            print("Package found: ", class_name[0],
+                  " | Project: ", entry.name)
+
 
 for cls in classes.keys():
     print(cls + ":")
